@@ -1,0 +1,87 @@
+<div class="top-bar">
+    <button mat-button (click)="sidenav.toggle()">Menu</button>
+    <div class="receboxd-logo" (click)="navigateToTelaInicial()">RECEBOXD</div>
+    <div class="user-section">
+      <div class="nickname" (click)="navigateToProfile()">{{ userNickname }} </div>
+      <img src="assets/images/perfil-template.png" alt="User Image" class="user-image"/>
+    </div>
+  </div>
+  
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav class="sidenav">
+      <mat-nav-list>
+        <mat-list-item>
+          <button mat-icon-button (click)="sidenav.toggle()">
+            <mat-icon aria-label="Fechar sidenav">close</mat-icon>
+          </button>
+        </mat-list-item>
+        <mat-list-item>
+          <button mat-button [routerLink]="['/perfil']">Perfil</button>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <button mat-button [routerLink]="['/futebol']">Futebol</button>
+        </mat-list-item>
+        <mat-list-item>
+          <button mat-button [routerLink]="['/tenis']">Tênis</button>
+        </mat-list-item>
+        <mat-list-item>
+          <button mat-button [routerLink]="['/baseball']">Baseball</button>
+        </mat-list-item>
+        <mat-list-item>
+          <button mat-button [routerLink]="['/basquete']">Basquete</button>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <button mat-button (click)="onLogout()">Sair</button>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-sidenav>
+  
+    <mat-sidenav-content>
+        <div class="form-container">
+        <form #perfilForm="ngForm" (ngSubmit)="onEdit()">
+            <div>
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="email" [(ngModel)]="userData.email" required>
+            </div>
+        
+            <div>
+                <label for="fullName">Nome Completo</label>
+                <input type="text" id="fullName" name="fullName" [(ngModel)]="userData.fullName" required>
+            </div>
+        
+            <div>
+                <label for="nickname">Nickname</label>
+                <input type="text" id="nickname" name="nickname" [(ngModel)]="userData.nickname" required pattern="[a-zA-Z0-9._-]+">
+            </div>
+        
+            <div>
+                <label for="birthDate">Data de Nascimento</label>
+                <input type="date" id="birthDate" name="birthDate" [(ngModel)]="userData.birthDate" required>
+            </div>
+        
+            <div>
+                <label for="favoriteTeam">Time Preferido</label>
+                <input type="text" id="favoriteTeam" name="favoriteTeam" [(ngModel)]="userData.favoriteTeam" required>
+            </div>
+        
+            <div>
+                <label for="userType">Tipo de Usuário</label>
+                <select id="userType" name="userType" [(ngModel)]="userData.userType" required>
+                    <option value="usuario">Usuário</option>
+                    <option value="jornalista">Jornalista</option>
+                </select>
+            </div>
+        
+            <div *ngIf="errorMessage" class="error-message">
+                {{ errorMessage }}
+            </div>
+        
+            <button type="submit">Salvar Alterações</button>
+        </form>
+
+        <button class="delete-button" (click)="onDelete()">Excluir Perfil</button>
+    </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>

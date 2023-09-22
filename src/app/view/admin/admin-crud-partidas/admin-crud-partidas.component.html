@@ -1,0 +1,110 @@
+<div>
+  <button (click)="showCreateForm = !showCreateForm">Cadastrar uma nova partida</button>
+  <button (click)="showMatchList = !showMatchList">Ver partidas</button>
+</div>
+
+<div *ngIf="showCreateForm">
+    <h3>Criar Partida</h3>
+    <form #matchForm="ngForm" (ngSubmit)="onCreateMatch(matchForm)">
+      <select name="sport" ngModel>
+        <option *ngFor="let sport of sports" [value]="sport">{{sport}}</option>
+      </select>
+  
+      <input type="text" placeholder="Nome do Campeonato" name="championshipName" ngModel />
+  
+      <select name="phase" ngModel (change)="onPhaseSelect($event)">
+        <option *ngFor="let phase of phases" [value]="phase">{{phase}}</option>
+      </select>
+  
+      <select *ngIf="showPlayoffPhases" name="playoffPhase" ngModel>
+        <option *ngFor="let playoffPhase of playoffPhases" [value]="playoffPhase">{{playoffPhase}}</option>
+      </select>
+  
+      <input type="text" placeholder="Time A" name="teamA" ngModel />
+      <input type="text" placeholder="Placar A" name="scoreA" ngModel />
+      <input type="text" placeholder="Time B" name="teamB" ngModel />
+      <input type="text" placeholder="Placar B" name="scoreB" ngModel />
+      <input type="text" placeholder="Estádio" name="stadium" ngModel />
+      <input type="text" placeholder="Local" name="location" ngModel />
+      <input type="text" placeholder="Horário" name="time" ngModel />
+      <input type="date" placeholder="Data" name="date" ngModel />
+  
+      <select name="status" ngModel>
+        <option *ngFor="let status of statuses" [value]="status">{{status}}</option>
+      </select>
+  
+      <button type="submit">Cadastrar Partida</button>
+    </form>
+  </div>
+  
+  <div *ngIf="showMatchList">
+    <h3>Partidas Cadastradas</h3>
+    <div>
+      <label>
+        Esporte: 
+        <select [(ngModel)]="filterSport">
+          <option value="">Todos</option>
+          <option *ngFor="let sport of sports" [value]="sport">{{sport}}</option>
+        </select>
+      </label>
+      <label>
+        Status da partida: 
+        <select [(ngModel)]="filterStatus">
+          <option value="">Todos</option>
+          <option *ngFor="let status of statuses" [value]="status">{{status}}</option>
+        </select>
+      </label>
+    </div>
+    <ul>
+      <li *ngFor="let match of matches | matchFilter:filterSport:filterStatus">
+        {{ match.teamA }} vs {{ match.teamB }} - {{ match.date }}
+        <button (click)="onEditMatch(match)">Editar Partida</button>
+        <button style="color: red"(click)="onDeleteMatch(match)">Excluir Partida</button>
+      </li>
+    </ul>
+  </div>
+
+  <div *ngIf="showEditForm && matchToEdit !== null">
+    <h3>Editar Partida</h3>
+    <form #editForm="ngForm" (ngSubmit)="onUpdateMatch(editForm)">
+      <select name="sport" [(ngModel)]="matchToEdit.sport">
+        <option value="Baseball">Baseball</option>
+        <option value="Basquete">Basquete</option>
+        <option value="Tenis">Tênis</option>
+        <option value="Futebol">Futebol</option>
+      </select>
+  
+      <input type="text" name="championshipName" [(ngModel)]="matchToEdit.championshipName" placeholder="Nome do Campeonato">
+  
+      <select name="phase" [(ngModel)]="matchToEdit.phase" (change)="onPhaseSelect(matchToEdit.phase)">
+        <option value="Regular">Fase Regular</option>
+        <option value="Playoffs">Playoffs</option>
+      </select>
+  
+      <div *ngIf="showPlayoffPhases">
+        <select name="playoffPhase" [(ngModel)]="matchToEdit.playoffPhase">
+          <option value="Oitavas-de-Final">Oitavas-de-Final</option>
+          <option value="Quartas-de-Final">Quartas-de-Final</option>
+          <option value="Semi-Final">Semi-Final</option>
+          <option value="Final">Final</option>
+        </select>
+      </div>
+  
+      <input type="text" name="teamA" [(ngModel)]="matchToEdit.teamA" placeholder="Time A">
+      <input type="text" name="scoreA" [(ngModel)]="matchToEdit.scoreA" placeholder="Placar A">
+      <input type="text" name="teamB" [(ngModel)]="matchToEdit.teamB" placeholder="Time B">
+      <input type="text" name="scoreB" [(ngModel)]="matchToEdit.scoreB" placeholder="Placar B">
+      <input type="text" name="stadium" [(ngModel)]="matchToEdit.stadium" placeholder="Estádio">
+      <input type="text" name="location" [(ngModel)]="matchToEdit.location" placeholder="Local">
+      <input type="text" name="time" [(ngModel)]="matchToEdit.time" placeholder="Horário">
+      <input type="date" name="date" [(ngModel)]="matchToEdit.date" placeholder="Data">
+  
+      <select name="status" [(ngModel)]="matchToEdit.status">
+        <option value="Evento Futuro">Evento Futuro</option>
+        <option value="Ao-Vivo">Ao-vivo</option>
+        <option value="Finalizado">Finalizado</option>
+      </select>
+      
+      <button type="submit">Atualizar Partida</button>
+    </form>
+  </div>  

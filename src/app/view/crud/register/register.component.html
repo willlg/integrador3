@@ -1,0 +1,82 @@
+<style>
+  .campo-uniforme {
+    width: calc(100% - 10px);
+    padding: 5px;
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    margin: 0;
+    font-size: 1em; 
+  }
+</style>
+
+<div style="display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; background-color: #F0FFF0;">
+  
+  <img src="assets/images/cadastro-template.png" alt="Imagem de Fundo" style="position: absolute; top: 0; right: 0; width: 50%; height: 100vh; object-fit: cover;">
+
+  <form (ngSubmit)="onSubmit(registerForm)" #registerForm="ngForm" style="background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 0 10px rgba(0,0,0,0.1); width: 20vw; margin: auto; margin-left: 175px">
+
+    <div style="margin-bottom: 5px;">
+      <label for="email">E-mail</label>
+      <input type="email" id="email" name="email" ngModel required class="campo-uniforme">
+    </div>
+  
+    <div style="margin-bottom: 5px;">
+      <label for="fullName">Nome Completo</label>
+      <input type="text" id="fullName" name="fullName" ngModel required class="campo-uniforme">
+    </div>
+
+    <div style="margin-bottom: 5px;">
+      <label for="password">Senha</label>
+      <input type="password" id="password" name="password" ngModel required class="campo-uniforme">
+    </div>
+    
+    <div style="margin-bottom: 5px;">
+      <label for="confirmPassword">Confirme sua Senha</label>
+      <input type="password" id="confirmPassword" name="confirmPassword" ngModel required class="campo-uniforme">
+    </div>
+
+    <div style="margin-bottom: 5px;">
+      <label for="nickname">Nickname</label>
+      <input type="text" id="nickname" name="nickname" ngModel required class="campo-uniforme">
+    </div>
+
+    <div style="margin-bottom: 5px;">
+      <label for="birthDate">Data de Nascimento</label>
+      <input type="date" id="birthDate" name="birthDate" ngModel required class="campo-uniforme">
+    </div>
+    
+    <div style="margin-bottom: 5px;">
+      <label for="favoriteTeam">Time Preferido</label>
+      <input type="text" id="favoriteTeam" name="favoriteTeam" ngModel required class="campo-uniforme">
+    </div>
+
+    <div style="margin-bottom: 5px;">
+        <label for="userType">Tipo de Usuário</label>
+        <select id="userType" name="userType" ngModel required class="campo-uniforme">
+          <option value="usuario">Usuário</option>
+          <option value="jornalista">Jornalista</option>
+        </select>
+    </div>
+
+    <div style="text-align: center;">
+      <button type="submit" [disabled]="!registerForm.form.valid" style="padding: 10px 20px;">CADASTRAR-SE</button>
+    </div>
+  </form>
+
+  <div *ngIf="errorMessage" class="error-message" style="margin-bottom: 5px; color: red;">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="successMessage" class="success-message" style="text-align: center; position: fixed; bottom: 0; left: 0; margin: 10px; color: green;">
+    <strong>{{ successMessage }}</strong>
+  </div>
+  
+  <p style="text-align: center; margin: auto; margin-left: 260px">
+    Já possui uma conta? <span (click)="onLogin()" style="color: rgb(37, 44, 37); cursor: pointer;"><strong><u>Faça Login</u></strong></span>
+  </p>
+
+  <div *ngIf="successMessage" style="text-align: center; position: fixed; bottom: 0; left: 0; margin: 10px;">
+    <button (click)="onLogin()" style="padding: 10px 20px;">Voltar para Login</button>
+</div>
+
+</div>

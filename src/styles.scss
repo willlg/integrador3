@@ -1,0 +1,365 @@
+
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material' as mat;
+// Plus imports for other components in your app.
+
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap');
+
+@include mat.core();
+
+$Receboxd-primary: mat.define-palette(mat.$indigo-palette);
+$Receboxd-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$Receboxd-warn: mat.define-palette(mat.$red-palette);
+
+$Receboxd-theme: mat.define-light-theme((
+  color: (
+    primary: $Receboxd-primary,
+    accent: $Receboxd-accent,
+    warn: $Receboxd-warn,
+  )
+));
+
+@include mat.all-component-themes($Receboxd-theme);
+
+body {
+    background-color: #c2f0c2;  /* Verde muito claro, quase branco */
+    color: #006400;  /* Verde bem escuro para o texto */
+    font-family: 'Oswald', sans-serif;  /* Definindo a fonte universal como Oswald-Regular */
+    margin: 0;
+    padding: 0;
+}
+
+input, textarea, select, button, input[type="button"], input[type="submit"] {
+    font-family: 'Oswald', sans-serif;  /* Definindo a fonte Oswald para campos de preenchimento e botões */
+}
+
+input, textarea, select {
+    background-color: #98FB98;  /* Verde claro para campos de preenchimento */
+    color: #000000;  /* Verde bem escuro para o texto dentro dos campos de preenchimento */
+    border: 1px solid #006400; 
+    padding: 8px;
+    margin: 4px 0;  
+    border-radius: 4px;  
+}
+
+input::placeholder, textarea::placeholder {
+    color: #A9A9A9; 
+}
+
+input:focus, textarea:focus, select:focus {
+    outline: none;  
+    border-color: #71e771;  /* Verde médio para o foco dos campos */
+}
+
+button, input[type="button"], input[type="submit"] {
+    border: 1px solid #006400; 
+    background-color: black; 
+    color: rgb(164, 248, 7);
+    padding: 8px 12px;  
+    margin: 4px 0;  
+    border-radius: 4px;  
+    cursor: pointer;  
+    transition: background-color 0.3s, color 0.3s; 
+}
+
+button:hover, input[type="button"]:hover, input[type="submit"]:hover {
+    background-color: #228B22;  /* Verde um pouco mais escuro para o hover dos botões */
+    color: #F0FFF0;  
+}
+
+button:focus, button:active, input[type="button"]:focus, input[type="submit"]:focus, input[type="button"]:active, input[type="submit"]:active {
+    outline: none;  
+    border-color: #228B22; 
+}
+
+.button-section {
+    display: flex;
+    justify-content: flex-end;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+  }
+
+.sidenav-container {
+    height: 100%;
+    display: flex;
+  }
+
+  .sidenav-content {
+    padding: 20px;
+  }
+  
+  .sidenav {
+    width: 250px;
+  }
+  
+  .mat-icon {
+    margin-right: 20px;
+  }
+  
+  @font-face {
+    font-family: 'NBA Font';
+    src: url('assets/fonts/nba.ttf') format('truetype');
+  }
+
+  .sport-name {
+    color: white; /* Manter a cor do texto como branco */
+    font-family: 'NBA Font', sans-serif; /* Usar a fonte NBA que você definiu */
+    font-size: 24px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px;
+    border-radius: 5px;
+    position: absolute; 
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    filter: brightness(1); 
+  }  
+  
+  .sport-container {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    filter: brightness(0.5);
+    position: relative;
+    cursor: pointer;
+  }
+
+
+  .sport-container:hover {
+    filter: brightness(1);
+  }
+
+  .filter-section {
+    display: flex;
+    justify-content: flex-start;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+
+  .upper-right-buttons {
+    display: flex;
+    justify-content: flex-start;
+    position: absolute;
+    top: 10px; /* Ajuste conforme necessário para evitar a sobreposição com a top bar */
+    right: 10px;/* Certifique-se de que está acima de outros elementos, ajuste conforme necessário */
+  }
+
+  .top-bar {
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    position: sticky;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #91f091;
+    padding: 10px;
+    border-bottom: 1px solid #e0e0e0;
+    color: #000000;
+  }
+
+   .receboxd-logo {
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  
+  .user-section {
+    display: flex;
+    align-items: center;
+  }
+  
+  .user-image {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+  
+  .nickname {
+    margin-right: 10px;
+    cursor: pointer;
+  }
+  
+  .nickname:hover {
+    text-decoration: underline;
+  }
+  
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%; /* Ajuste a largura conforme necessário */
+    background: #fff; /* Ajuste a cor de fundo conforme necessário */
+    padding: 20px;
+    border-radius: 10px; /* Ajuste o raio da borda conforme necessário */
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1); /* Ajuste a sombra conforme necessário */
+}
+
+.partida-card {
+  background-size: cover; /* Faz com que a imagem cubra todo o background */
+  background-position: center; /* Centraliza a imagem */
+  background-repeat: no-repeat; /* Evita repetições da imagem */
+  color: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+  max-width: 300px;
+  margin: 0 auto;
+  position: relative; /* Mantenha isso para permitir o posicionamento relativo dos elementos dentro do card */
+}
+.partida-card div {
+  background-color: rgba(0, 0, 0, 0.5); /* Adiciona um fundo semi-transparente para melhor legibilidade */
+}
+
+.partida-card div.active {
+  display: block; /* Isso fará com que o div ativo seja exibido */
+}
+
+  .teamA, .teamB {
+    font-weight: bold;
+    
+  }
+  .scoreA, .scoreB {
+    color: red;
+  }
+  .event-container {
+    display: flex;
+    justify-content: space-between;
+  }
+  .eventos-finalizados, .eventos-ao-vivo, .eventos-futuros {
+    width: 32%; /* Ajuste conforme necessário */
+  }
+
+  .partida-card h3 {
+    margin-top: 0;
+    text-align: center;
+  }
+
+  .championship-title {
+    text-align: center;
+  }
+
+  .noticia-card {
+    display: flex;
+    align-items: flex-start;
+    background-color: #ceffae;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .noticia-image {
+    flex: 1;
+    max-width: 300px;
+    width: 100%; /* Isso garantirá que a imagem seja responsiva */
+    border-radius: 5px;
+    margin-right: 10px; /* Espaçamento entre a imagem e o conteúdo */
+  }
+  
+  .noticia-content {
+    flex: 2;
+  }
+
+  .prognostico-card {
+    display: flex;
+    align-items: flex-start;
+    background-color: #ceffae;
+    border: 1px solid #e0e0e0;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  
+  .prognostico-image {
+    flex: 1;
+    max-width: 300px;
+    width: 100%; 
+    border-radius: 5px;
+    margin-right: 10px; 
+  }
+  
+  .prognostico-content {
+    flex: 2;
+  }
+  
+  .top-news-carousel {
+    top: 50px; 
+    left: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: #86c074;
+    background-size: cover; /* Isso fará com que a imagem se ajuste completamente dentro do container */
+    background-repeat: no-repeat; /* Isso evitará que a imagem seja repetida */
+    background-position: center;
+    overflow: hidden;
+    height: 500px; /* Defina a altura de acordo com o que você precisa, 500px é apenas um valor de exemplo */
+}
+  
+.top-news-carousel div {
+  display: none;
+  position: absolute; /* Isto fará com que o div seja posicionado em relação ao .top-news-carousel */
+  bottom: 150px; /* Isto coloca o div no canto inferior */
+  left: 10px; /* Isto coloca o div no canto esquerdo */
+  background-color: rgba(0, 0, 0, 0.5); /* Adiciona um fundo semi-transparente para melhor legibilidade */
+  padding: 10px; /* Adiciona algum espaço ao redor do texto */
+  max-width: 300px; /* Limita a largura do contêiner de notícias */
+  box-sizing: border-box; /* Isso garante que o padding não aumenta o tamanho do contêiner */
+}
+
+.top-news-carousel div.active {
+  display: block;
+}
+
+.carousel-buttons {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 5px;
+}
+
+.carousel-button {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ccc;
+  border: none;
+  cursor: pointer;
+}
+
+.carousel-button.active {
+  background-color: #000;
+}
+    
+    
+
+
+html, body { height: 100%; }
+body { margin: 0; font-family: 'Oswald', sans-serif;  /* Definindo a fonte universal como Oswald-Regular */
+        @supports (font-variation-settings: normal){
+        font-family: 'Oswald', sans-serif;
+        } 
+    }

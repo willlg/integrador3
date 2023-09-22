@@ -1,0 +1,14 @@
+<div class="center">
+  <h2>Login Admin</h2>
+  <form #adminLoginForm="ngForm" (ngSubmit)="adminLogin(adminLoginForm.value)">
+    <div>
+      <label for="username">Usuário:</label>
+      <input type="text" id="username" name="username" ngModel>
+    </div>
+    <div>
+      <label for="password">Senha:</label>
+      <input type="password" id="password" name="password" ngModel>
+    </div>
+    <button type="submit">Login</button>
+  </form>
+</div>

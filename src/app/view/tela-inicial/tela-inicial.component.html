@@ -1,0 +1,58 @@
+<div class="top-bar">
+  <button mat-button (click)="sidenav.toggle()">Menu</button>
+  <div class="receboxd-logo" (click)="navigateToTelaInicial()">RECEBOXD</div>
+  <div class="user-section">
+    <div class="nickname" (click)="navigateToProfile()">{{ userNickname }} </div>
+    <img src="assets/images/perfil-template.png" alt="User Image" class="user-image"/>
+  </div>
+</div>
+
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #sidenav class="sidenav">
+    <mat-nav-list>
+      <mat-list-item>
+        <button mat-icon-button (click)="sidenav.toggle()">
+          <mat-icon aria-label="Fechar sidenav">close</mat-icon>
+        </button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button [routerLink]="['/perfil']">Perfil</button>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <button mat-button [routerLink]="['/futebol']">Futebol</button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button [routerLink]="['/tenis']">Tênis</button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button [routerLink]="['/baseball']">Baseball</button>
+      </mat-list-item>
+      <mat-list-item>
+        <button mat-button [routerLink]="['/basquete']">Basquete</button>
+      </mat-list-item>
+      <mat-divider></mat-divider>
+      <mat-list-item>
+        <button mat-button (click)="onLogout()">Sair</button>
+      </mat-list-item>
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+
+    <mat-grid-list cols="2" rowHeight="2:1" gutterSize="10px">
+      <mat-grid-tile
+        *ngFor="let sport of sports"
+        (click)="navigateToSport(sport.route)"
+        class="sport-tile"
+      >
+        <div 
+          class="sport-container"
+          [style.backgroundImage]="'url(' + sport.image + ')'"
+        >
+          <span class="sport-name">{{ sport.name }}</span>
+        </div>
+      </mat-grid-tile>
+    </mat-grid-list>
+  </mat-sidenav-content>
+</mat-sidenav-container>

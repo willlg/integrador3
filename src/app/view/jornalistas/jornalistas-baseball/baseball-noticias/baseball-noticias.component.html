@@ -1,0 +1,120 @@
+  <div class="top-bar">
+    <button mat-button (click)="sidenav.toggle()">Menu</button>
+    <div class="receboxd-logo" (click)="navigateToTelaInicial()">RECEBOXD</div>
+    <div class="user-section">
+      <div class="nickname" (click)="navigateToProfile()">{{ userNickname }} </div>
+      <img src="assets/images/perfil-template.png" alt="User Image" class="user-image"/>
+    </div>
+  </div>
+
+  <div class="top-news-carousel">
+    <div *ngFor="let noticia of ultimasNoticias; let i = index" [ngClass]="{ 'active': i === currentNewsIndex }">
+      <h2>{{ noticia.titulo }}</h2>
+      <p>{{ noticia.conteudo }}</p>
+      <p><strong>Campeonato:</strong> {{ noticia.campeonato }}</p>
+    </div>
+    <button *ngFor="let noticia of ultimasNoticias; let i = index" 
+          (click)="setCurrentNewsIndex(i)" 
+          [ngClass]="{ 'active': i === currentNewsIndex }" 
+          class="carousel-button">
+    </button>
+  </div>
+
+  <mat-sidenav-container class="sidenav-container">
+    <mat-sidenav #sidenav class="sidenav">
+      <mat-nav-list>
+        <mat-list-item>
+          <button mat-icon-button (click)="sidenav.toggle()">
+            <mat-icon aria-label="Fechar sidenav">close</mat-icon>
+          </button>
+        </mat-list-item>
+        <mat-list-item>
+          <button mat-button [routerLink]="['/perfil']">Perfil</button>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <button mat-button [routerLink]="['/futebol']">Futebol</button>
+        </mat-list-item>
+        <mat-list-item>
+          <button mat-button [routerLink]="['/tenis']">Tênis</button>
+        </mat-list-item>
+        <mat-list-item>
+          <button mat-button [routerLink]="['/baseball']">Baseball</button>
+        </mat-list-item>
+        <mat-list-item>
+          <button mat-button [routerLink]="['/basquete']">Basquete</button>
+        </mat-list-item>
+        <mat-divider></mat-divider>
+        <mat-list-item>
+          <button mat-button (click)="onLogout()">Sair</button>
+        </mat-list-item>
+      </mat-nav-list>
+    </mat-sidenav>
+    
+
+    <mat-sidenav-content>
+      <button mat-icon-button class="popup-button" *ngIf="currentUser?.userType === 'jornalista'" (click)="openModal()">
+        + Adicionar Notícia
+      </button>
+      <div class="modal" *ngIf="showModal">
+        <div class="modal-content">
+            <div class="close-container">
+                <span class="close" (click)="closeModal()">&times;</span>
+            </div>
+            <div *ngIf="currentUser?.userType === 'jornalista'">
+        <form (ngSubmit)="postNoticia(noticiaForm)" #noticiaForm="ngForm">
+          <div>
+            <label for="titulo">Título</label>
+            <input type="text" id="titulo" name="titulo" [(ngModel)]="noticiaFormModel.titulo" required>
+          </div>
+          
+          <div>
+            <label for="conteudo">Conteúdo</label>
+            <textarea id="conteudo" name="conteudo" [(ngModel)]="noticiaFormModel.conteudo" required></textarea>
+          </div>
+      
+          <div>
+            <label for="campeonato">Campeonato:</label>
+            <input type="text" id="campeonato" name="campeonato" [(ngModel)]="noticiaFormModel.campeonato" required>
+          </div>
+      
+          <div>
+            <label for="esporte">Esporte</label>
+            <select id="esporte" name="esporte" [(ngModel)]="noticiaFormModel.esporte" required>
+              <option value="Futebol">Futebol</option>
+              <option value="Basquete">Basquete</option>
+              <option value="Baseball">Baseball</option>
+              <option value="Tênis">Tênis</option>
+            </select>
+          </div>
+          
+          <button type="submit" [disabled]="!noticiaForm.form.valid">
+            {{ noticiaFormModel.id ? 'Atualizar Notícia' : 'Postar Notícia' }}
+          </button>
+        </form>
+      </div>
+    </div>
+      </div>
+      
+      
+      
+      <div *ngIf="currentUser?.userType === 'usuario' || currentUser?.userType === 'jornalista'">
+        <div *ngFor="let noticia of noticias">
+          <ng-container *ngIf="noticia.esporte === 'Baseball'">
+            <div class="noticia-card">
+              <img src="assets/images/ohtani-mvp.jpg" alt="Imagem da Notícia" class="noticia-image"/>
+              <div class="noticia-content">
+                <h2>{{ noticia.titulo }}</h2>
+                <p>{{ noticia.conteudo }}</p>
+                <p><strong>Campeonato:</strong> {{ noticia.campeonato }}</p>
+              </div>
+              <ng-container *ngIf="currentUser?.userType === 'jornalista'">
+                <button style="background-color: black; color: rgb(164, 248, 7); margin-right: 10px"(click)="editNoticia(noticia)">Editar</button>
+                <button style="background-color: black; color: rgb(164, 248, 7);"(click)="deleteNoticia(noticia.id)">Excluir</button>
+              </ng-container>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
